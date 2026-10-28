@@ -1,0 +1,7 @@
+pyyaml>=6.0
+jsonschema>=4.0
+# docker CLI is invoked as a subprocess (dockerctl.py); no python docker SDK required.
+# scanner adapter (adapters/zap.py): the official ZAP API client + requests for the
+# through-proxy login. Imported lazily, so the deterministic core/tests don't need them.
+zaproxy>=0.3.2
+requests>=2.31

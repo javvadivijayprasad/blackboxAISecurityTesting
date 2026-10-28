@@ -1,0 +1,103 @@
+# Paper K — worked label example for DVWA (illustrative, not the full set)
+# Target pinned at commit a1978a2fed195acd093010af6395f86a281537ca (2026-10-18).
+# DVWA needs a valid session (default admin/password) and a security-level cookie; the
+# "attacker" uses a low-privilege authenticated session, which is part of the published setup.
+# Difficulty levels are modelled as separate instances; "impossible" is the negative control.
+# Validates against ../schema/label.schema.json.
+
+- id: DVWA-CMD_INJECTION-001
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: POST, path: /vulnerabilities/exec/, param: ip, endpoint_family: exec }
+  auth_context: authenticated_user
+  difficulty: low
+  vuln_class: cmd_injection
+  cwe: CWE-78
+  owasp_2021: A03
+  control_gaining: true
+  is_vulnerable: true
+  outcome_type: rce_command_exec
+  oracle_check: rce.sentinel_file
+  label_confidence: documented
+  source_of_truth: "DVWA module: Command Injection (built-in)"
+  notes: "Classic ping box; low level concatenates input into a shell command."
+
+- id: DVWA-CMD_INJECTION-002
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: POST, path: /vulnerabilities/exec/, param: ip, endpoint_family: exec }
+  auth_context: authenticated_user
+  difficulty: impossible
+  vuln_class: cmd_injection
+  cwe: CWE-78
+  owasp_2021: A03
+  control_gaining: false
+  is_vulnerable: false          # NEGATIVE CONTROL — same endpoint, patched. Any flag here is a false positive.
+  outcome_type: none
+  oracle_check: none
+  label_confidence: confirmed
+  source_of_truth: "DVWA 'impossible' security level (parameterised / whitelisted)"
+
+- id: DVWA-LFI_EXEC-001
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: GET, path: /vulnerabilities/fi/, param: page, endpoint_family: fi }
+  auth_context: authenticated_user
+  difficulty: low
+  vuln_class: lfi_exec
+  cwe: CWE-98
+  owasp_2021: A03
+  control_gaining: true
+  is_vulnerable: true
+  outcome_type: file_read_sensitive
+  oracle_check: lfi.canary       # oracle plants a canary file containing the per-run nonce
+  label_confidence: documented
+  source_of_truth: "DVWA module: File Inclusion (built-in)"
+
+- id: DVWA-UPLOAD_WEBSHELL-001
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: POST, path: /vulnerabilities/upload/, param: uploaded, endpoint_family: upload }
+  auth_context: authenticated_user
+  difficulty: low
+  vuln_class: upload_webshell
+  cwe: CWE-434
+  owasp_2021: A05
+  control_gaining: true
+  is_vulnerable: true
+  outcome_type: file_write_webshell   # confirmed by challenge-response from the written file -> rce_command_exec
+  oracle_check: rce.sentinel_file
+  label_confidence: documented
+  source_of_truth: "DVWA module: File Upload (built-in)"
+
+- id: DVWA-SQLI-001
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: GET, path: /vulnerabilities/sqli/, param: id, endpoint_family: sqli }
+  auth_context: authenticated_user
+  difficulty: low
+  vuln_class: sqli
+  cwe: CWE-89
+  owasp_2021: A03
+  control_gaining: false
+  is_vulnerable: true
+  outcome_type: sql_data_exfil
+  oracle_check: sqli.secret_row   # oracle seeds a secret row carrying the per-run nonce
+  label_confidence: documented
+  source_of_truth: "DVWA module: SQL Injection (built-in)"
+
+- id: DVWA-SQLI-002
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: GET, path: /vulnerabilities/sqli/, param: id, endpoint_family: sqli }
+  auth_context: authenticated_user
+  difficulty: impossible
+  vuln_class: sqli
+  cwe: CWE-89
+  owasp_2021: A03
+  control_gaining: false
+  is_vulnerable: false          # NEGATIVE CONTROL — prepared statements at 'impossible' level.
+  outcome_type: none
+  oracle_check: none
+  label_confidence: confirmed
+  source_of_truth: "DVWA 'impossible' security level (PDO prepared statements)"

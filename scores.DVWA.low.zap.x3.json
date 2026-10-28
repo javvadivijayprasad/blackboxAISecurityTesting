@@ -1,0 +1,122 @@
+[
+  {
+    "tool": "owasp-zap",
+    "target": "DVWA",
+    "run_id": "DVWA-low-zap-r0",
+    "instances": [
+      {
+        "label_id": "DVWA-CMD_INJECTION-001",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-LFI_EXEC-001",
+        "vuln_class": "lfi_exec",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-UPLOAD_WEBSHELL-001",
+        "vuln_class": "upload_webshell",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-SQLI-001",
+        "vuln_class": "sqli",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 863,
+    "cost_tokens": 0,
+    "cost_usd": 0.0,
+    "wall_clock_s": 2314.3972256183624
+  },
+  {
+    "tool": "owasp-zap",
+    "target": "DVWA",
+    "run_id": "DVWA-low-zap-r1",
+    "instances": [
+      {
+        "label_id": "DVWA-CMD_INJECTION-001",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-LFI_EXEC-001",
+        "vuln_class": "lfi_exec",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-UPLOAD_WEBSHELL-001",
+        "vuln_class": "upload_webshell",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-SQLI-001",
+        "vuln_class": "sqli",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 850,
+    "cost_tokens": 0,
+    "cost_usd": 0.0,
+    "wall_clock_s": 2261.3142578601837
+  },
+  {
+    "tool": "owasp-zap",
+    "target": "DVWA",
+    "run_id": "DVWA-low-zap-r2",
+    "instances": [
+      {
+        "label_id": "DVWA-CMD_INJECTION-001",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-LFI_EXEC-001",
+        "vuln_class": "lfi_exec",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-UPLOAD_WEBSHELL-001",
+        "vuln_class": "upload_webshell",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-SQLI-001",
+        "vuln_class": "sqli",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 865,
+    "cost_tokens": 0,
+    "cost_usd": 0.0,
+    "wall_clock_s": 2307.082589864731
+  }
+]

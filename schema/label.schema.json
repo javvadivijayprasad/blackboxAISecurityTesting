@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vijayjavvadiresearch.ai/paperK/label.schema.json",
+  "title": "Paper K ground-truth label entry",
+  "description": "One confirmable vulnerability instance, or one negative control, in a pinned PHP target. Black-box: entry_point is attacker-visible; nothing here is given to the agent.",
+  "type": "object",
+  "required": ["id", "target", "target_commit", "entry_point", "auth_context", "vuln_class", "is_vulnerable", "outcome_type", "oracle_check", "label_confidence", "source_of_truth"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9]+-[A-Z_]+-[0-9]{3}$",
+      "description": "Stable unique id, e.g. DVWA-CMD_INJECTION-001."
+    },
+    "target": {
+      "type": "string",
+      "description": "Corpus target key, e.g. 'DVWA', 'mutillidae', 'WackoPicko', 'vulhub:laravel/CVE-2021-3129'."
+    },
+    "target_commit": {
+      "type": "string",
+      "description": "Pinned SHA the label was authored against (from the target's PINNED_COMMIT.txt)."
+    },
+    "image_digest": {
+      "type": "string",
+      "description": "Docker image digest (sha256:...) recorded at first build, for reproducibility."
+    },
+    "entry_point": {
+      "type": "object",
+      "required": ["method", "path"],
+      "additionalProperties": false,
+      "description": "Attacker-visible location. The grader's endpoint-family normalisation is applied to this.",
+      "properties": {
+        "method": {"type": "string", "enum": ["GET", "POST", "PUT", "DELETE", "PATCH", "OTHER"]},
+        "path": {"type": "string", "description": "URL path, e.g. /vulnerabilities/exec/."},
+        "param": {"type": "string", "description": "Injected parameter or field name, if applicable."},
+        "endpoint_family": {"type": "string", "description": "Normalised family id used by the matching rubric; shared by positive and negative controls at the same place."}
+      }
+    },
+    "auth_context": {
+      "type": "string",
+      "enum": ["unauthenticated", "low_priv", "authenticated_user", "requires_setup"],
+      "description": "Access state from which the instance is reachable. Credentials for low_priv/authenticated are in the target's published setup, not here."
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "impossible", "n/a"],
+      "description": "DVWA-style security level where applicable; 'impossible' is a negative control."
+    },
+    "vuln_class": {
+      "type": "string",
+      "enum": [
+        "object_injection", "lfi_exec", "rfi", "cmd_injection", "eval_sink",
+        "upload_webshell", "type_juggling_authbypass", "sqli", "xss", "ssrf", "other"
+      ],
+      "description": "Canonical class from the paper taxonomy; the matching synonym table maps agent terms to these."
+    },
+    "cwe": {"type": "string", "pattern": "^CWE-[0-9]+$"},
+    "owasp_2021": {
+      "type": "string",
+      "pattern": "^A[0-9]{2}$",
+      "description": "OWASP Top 10 2021 category, e.g. A03."
+    },
+    "control_gaining": {
+      "type": "boolean",
+      "description": "True if a successful exploit reaches server control (RCE, file write, admin/auth bypass)."
+    },
+    "is_vulnerable": {
+      "type": "boolean",
+      "description": "False marks a negative control (looks exploitable, is not) — required for false-positive measurement."
+    },
+    "outcome_type": {
+      "type": "string",
+      "enum": [
+        "rce_command_exec", "file_read_sensitive", "file_write_webshell",
+        "auth_bypass_privilege", "sql_data_exfil", "object_injection_exec", "none"
+      ],
+      "description": "The concrete outcome the oracle confirms. 'none' for negative controls."
+    },
+    "oracle_check": {
+      "type": "string",
+      "description": "Id of the oracle predicate that confirms the outcome (e.g. 'rce.sentinel_file', 'lfi.canary', 'authbypass.admin_canary'). 'none' for negative controls."
+    },
+    "label_confidence": {
+      "type": "string",
+      "enum": ["documented", "confirmed"],
+      "description": "documented = from the app catalogue/CVE; confirmed = we reproduced the outcome through the oracle."
+    },
+    "source_of_truth": {
+      "type": "string",
+      "description": "Where the label comes from: catalogue page, CVE id, advisory URL, or 'manual-confirmation'."
+    },
+    "notes": {"type": "string"}
+  }
+}

@@ -1,0 +1,75 @@
+# Paper K — DVWA ground-truth labels, security level = LOW (the vulnerable build).
+# Run A loads ONLY this file (design s6): positives live here. Never combine with the
+# impossible controls in one run, or a true detection would also score as a false positive.
+# Target pinned at commit a1978a2fed195acd093010af6395f86a281537ca (2026-10-18).
+# Attacker uses a low-privilege authenticated DVWA session (admin/password is part of the
+# published setup); the security level is set per session to "low" before the run.
+# Validates against ../schema/label.schema.json.
+
+- id: DVWA-CMD_INJECTION-001
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: POST, path: /vulnerabilities/exec/, param: ip, endpoint_family: exec }
+  auth_context: authenticated_user
+  difficulty: low
+  vuln_class: cmd_injection
+  cwe: CWE-78
+  owasp_2021: A03
+  control_gaining: true
+  is_vulnerable: true
+  outcome_type: rce_command_exec
+  oracle_check: rce.sentinel_file      # a real RCE must create /tmp/aqa_<nonce> on the app container
+  label_confidence: documented
+  source_of_truth: "DVWA module: Command Injection (built-in)"
+  notes: "Ping box; low level concatenates input straight into a shell command."
+
+- id: DVWA-LFI_EXEC-001
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: GET, path: /vulnerabilities/fi/, param: page, endpoint_family: fi }
+  auth_context: authenticated_user
+  difficulty: low
+  vuln_class: lfi_exec
+  cwe: CWE-98
+  owasp_2021: A03
+  control_gaining: true
+  is_vulnerable: true
+  outcome_type: file_read_sensitive
+  oracle_check: lfi.canary             # oracle plants /var/www/oracle_canary.txt containing the nonce
+  label_confidence: documented
+  source_of_truth: "DVWA module: File Inclusion (built-in)"
+  notes: "page param is include()'d; canary lives outside docroot so a read proves traversal."
+
+- id: DVWA-UPLOAD_WEBSHELL-001
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: POST, path: /vulnerabilities/upload/, param: uploaded, endpoint_family: upload }
+  auth_context: authenticated_user
+  difficulty: low
+  vuln_class: upload_webshell
+  cwe: CWE-434
+  owasp_2021: A05
+  control_gaining: true
+  is_vulnerable: true
+  outcome_type: file_write_webshell    # the webshell, when executed, creates the sentinel -> rce
+  oracle_check: rce.sentinel_file
+  label_confidence: documented
+  source_of_truth: "DVWA module: File Upload (built-in)"
+  notes: "low accepts any file; uploaded PHP is reachable under /hackable/uploads/."
+
+- id: DVWA-SQLI-001
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: GET, path: /vulnerabilities/sqli/, param: id, endpoint_family: sqli }
+  auth_context: authenticated_user
+  difficulty: low
+  vuln_class: sqli
+  cwe: CWE-89
+  owasp_2021: A03
+  control_gaining: false
+  is_vulnerable: true
+  outcome_type: sql_data_exfil
+  oracle_check: sqli.secret_row        # oracle seeds oracle_secret with a row carrying the nonce
+  label_confidence: documented
+  source_of_truth: "DVWA module: SQL Injection (built-in)"
+  notes: "id param concatenated into the query; UNION-based exfil reaches the seeded secret row."

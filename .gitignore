@@ -1,0 +1,20 @@
+# secrets — never commit
+.anthropic_key
+.anthropic_workspace
+.env
+.env.*
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# packaging / scratch
+*.tgz
+_repo_push.tgz
+archive_scores/
+
+# the deliberately-vulnerable targets are fetched, not committed
+targets/
+_tmp/

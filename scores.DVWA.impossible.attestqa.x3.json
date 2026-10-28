@@ -1,0 +1,122 @@
+[
+  {
+    "tool": "attestqa:claude",
+    "target": "DVWA",
+    "run_id": "DVWA-impossible-attestqa-claude-r0",
+    "instances": [
+      {
+        "label_id": "DVWA-CMD_INJECTION-002",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-LFI_EXEC-002",
+        "vuln_class": "lfi_exec",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-UPLOAD_WEBSHELL-002",
+        "vuln_class": "upload_webshell",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-SQLI-002",
+        "vuln_class": "sqli",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 837606,
+    "cost_usd": 4.44967,
+    "wall_clock_s": 260.22582936286926
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "DVWA",
+    "run_id": "DVWA-impossible-attestqa-claude-r1",
+    "instances": [
+      {
+        "label_id": "DVWA-CMD_INJECTION-002",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-LFI_EXEC-002",
+        "vuln_class": "lfi_exec",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-UPLOAD_WEBSHELL-002",
+        "vuln_class": "upload_webshell",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-SQLI-002",
+        "vuln_class": "sqli",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 875322,
+    "cost_usd": 4.63537,
+    "wall_clock_s": 257.02800273895264
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "DVWA",
+    "run_id": "DVWA-impossible-attestqa-claude-r2",
+    "instances": [
+      {
+        "label_id": "DVWA-CMD_INJECTION-002",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-LFI_EXEC-002",
+        "vuln_class": "lfi_exec",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-UPLOAD_WEBSHELL-002",
+        "vuln_class": "upload_webshell",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-SQLI-002",
+        "vuln_class": "sqli",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 791604,
+    "cost_usd": 4.17908,
+    "wall_clock_s": 222.1104598045349
+  }
+]

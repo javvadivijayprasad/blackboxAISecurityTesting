@@ -1,0 +1,21 @@
+[
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:thinkphp/5-rce",
+    "run_id": "thinkphp-5-rce-attestqa-claude-r0",
+    "instances": [
+      {
+        "label_id": "THINKPHP-RCE-001",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": true
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 61508,
+    "cost_usd": 0.35222,
+    "wall_clock_s": 41.19559860229492
+  }
+]

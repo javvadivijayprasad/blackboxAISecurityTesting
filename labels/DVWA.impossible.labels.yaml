@@ -1,0 +1,71 @@
+# Paper K — DVWA ground-truth labels, security level = IMPOSSIBLE (the control build).
+# Run B loads ONLY this file (design s6). Every entry is a negative control: the same
+# endpoint family + class as the low positives, but hardened. Any finding the tool reports
+# here is an unambiguous FALSE POSITIVE — this file is how precision is measured.
+# Target pinned at commit a1978a2fed195acd093010af6395f86a281537ca (2026-10-18).
+# Security level is set to "impossible" for the session before the run.
+# Validates against ../schema/label.schema.json.
+
+- id: DVWA-CMD_INJECTION-002
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: POST, path: /vulnerabilities/exec/, param: ip, endpoint_family: exec }
+  auth_context: authenticated_user
+  difficulty: impossible
+  vuln_class: cmd_injection
+  cwe: CWE-78
+  owasp_2021: A03
+  control_gaining: false
+  is_vulnerable: false
+  outcome_type: none
+  oracle_check: none
+  label_confidence: confirmed
+  source_of_truth: "DVWA 'impossible' security level (input whitelisted / not shelled out)"
+
+- id: DVWA-LFI_EXEC-002
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: GET, path: /vulnerabilities/fi/, param: page, endpoint_family: fi }
+  auth_context: authenticated_user
+  difficulty: impossible
+  vuln_class: lfi_exec
+  cwe: CWE-98
+  owasp_2021: A03
+  control_gaining: false
+  is_vulnerable: false
+  outcome_type: none
+  oracle_check: none
+  label_confidence: confirmed
+  source_of_truth: "DVWA 'impossible' security level (page restricted to an allow-list)"
+
+- id: DVWA-UPLOAD_WEBSHELL-002
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: POST, path: /vulnerabilities/upload/, param: uploaded, endpoint_family: upload }
+  auth_context: authenticated_user
+  difficulty: impossible
+  vuln_class: upload_webshell
+  cwe: CWE-434
+  owasp_2021: A05
+  control_gaining: false
+  is_vulnerable: false
+  outcome_type: none
+  oracle_check: none
+  label_confidence: confirmed
+  source_of_truth: "DVWA 'impossible' security level (content/type checks, re-encoded, non-exec path)"
+
+- id: DVWA-SQLI-002
+  target: DVWA
+  target_commit: a1978a2fed195acd093010af6395f86a281537ca
+  entry_point: { method: GET, path: /vulnerabilities/sqli/, param: id, endpoint_family: sqli }
+  auth_context: authenticated_user
+  difficulty: impossible
+  vuln_class: sqli
+  cwe: CWE-89
+  owasp_2021: A03
+  control_gaining: false
+  is_vulnerable: false
+  outcome_type: none
+  oracle_check: none
+  label_confidence: confirmed
+  source_of_truth: "DVWA 'impossible' security level (PDO prepared statements)"

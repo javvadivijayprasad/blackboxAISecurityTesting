@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this benchmark, please cite it."
+title: "Black-Box AI Security Testing: a PHP exploit-validation benchmark"
+type: software
+authors:
+  - family-names: "Javvadi"
+    given-names: "Vijay Prasad"
+    orcid: "https://orcid.org/0009-0004-1192-6906"
+    affiliation: "Independent Researcher, Plainsboro, NJ, USA"
+repository-code: "https://github.com/javvadivijayprasad/blackboxAISecurityTesting"
+url: "https://github.com/javvadivijayprasad/blackboxAISecurityTesting"
+license: MIT
+version: "0.1.0"
+date-released: "2026-10-26"
+keywords:
+  - AI security testing
+  - penetration testing
+  - large language models
+  - PHP
+  - exploit validation
+  - benchmark
+preferred-citation:
+  type: article
+  title: "Flagged but Not Proven: An Exploit-Validated Study of Black-Box AI Security Testing on PHP Web Applications"
+  authors:
+    - family-names: "Javvadi"
+      given-names: "Vijay Prasad"
+      orcid: "https://orcid.org/0009-0004-1192-6906"
+  year: 2026
+  notes: "Preprint on TechRxiv; DOI to be added on release."
