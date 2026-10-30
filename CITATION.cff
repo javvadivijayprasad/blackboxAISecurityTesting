@@ -9,9 +9,14 @@ authors:
     affiliation: "Independent Researcher, Plainsboro, NJ, USA"
 repository-code: "https://github.com/javvadivijayprasad/blackboxAISecurityTesting"
 url: "https://github.com/javvadivijayprasad/blackboxAISecurityTesting"
+doi: 10.5281/zenodo.23805519
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23805519
+    description: "Zenodo archive (v1.0.0)"
 license: MIT
-version: "0.1.0"
-date-released: "2026-10-26"
+version: "1.0.0"
+date-released: "2026-10-30"
 keywords:
   - AI security testing
   - penetration testing
@@ -27,4 +32,4 @@ preferred-citation:
       given-names: "Vijay Prasad"
       orcid: "https://orcid.org/0009-0004-1192-6906"
   year: 2026
-  notes: "Preprint on TechRxiv; DOI to be added on release."
+  notes: "Preprint on TechRxiv; journal DOI to be added when available."

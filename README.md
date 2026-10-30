@@ -57,8 +57,11 @@ applications run in isolated containers; nothing here is for use against systems
 not own or are not authorised to test.
 
 ## Citing
-See `CITATION.cff` (GitHub's "Cite this repository"). The preprint DOI (TechRxiv) will be
-added on release.
+If you use this benchmark, please cite the archived release:
+
+> Javvadi, V. P. (2026). Black-Box AI Security Testing: a PHP exploit-validation benchmark (Version v1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23805519
+
+GitHub's "Cite this repository" button reads `CITATION.cff`. The companion paper (and its TechRxiv preprint) will be linked when available.
 
 ## License
 MIT — see `LICENSE`.
