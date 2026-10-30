@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 from paperk_oracle.labels import load
-from paperk_oracle.runner import TargetSpec, run_once, save_scores
+from paperk_oracle.runner import TargetSpec, run_once, save_scores, http_signature_check
 from paperk_oracle.adapters.attestqa import AttestqaAdapter
 from targets_config import DVWA, dvwa_agent_session, dvwa_reinit, DVWA_ZAP_EXCLUDE
 
@@ -51,7 +51,8 @@ def main(level: str = "low", repeats: int = 1) -> int:
     # post_reset_init wired so reset=True re-creates DVWA's schema between trials (design s4).
     spec = TargetSpec(key="DVWA", base_url=BASE_URL, compose_dir=COMPOSE_DIR,
                       plant_cfg=DVWA, creds={"user": "admin", "pass": "password"},
-                      post_reset_init=dvwa_reinit)
+                      post_reset_init=dvwa_reinit,
+                      health_check=http_signature_check("DVWA"))
     tool = AttestqaAdapter(provider="claude", api_key=_resolve_api_key(),
                            workspace_id=_resolve_workspace_id(),
                            session_provider=dvwa_agent_session(level),

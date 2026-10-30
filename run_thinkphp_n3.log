@@ -1,0 +1,5 @@
+budget: max_iterations=30, effort=medium
+  thinkphp-5-rce-attestqa-claude-r0: detect 1/1, confirm 1/1, FP 0, $0.36723 / 36s
+  thinkphp-5-rce-attestqa-claude-r1: detect 1/1, confirm 1/1, FP 0, $0.350515 / 35s
+  thinkphp-5-rce-attestqa-claude-r2: detect 1/1, confirm 1/1, FP 0, $0.335615 / 42s
+saved scores.thinkphp-5-rce.attestqa.x3.json: 3 run(s); total cost $1.0534

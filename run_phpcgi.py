@@ -11,7 +11,7 @@ from __future__ import annotations
 import sys
 
 from paperk_oracle.labels import load
-from paperk_oracle.runner import TargetSpec, run_once, save_scores
+from paperk_oracle.runner import TargetSpec, run_once, save_scores, http_signature_check
 from paperk_oracle.adapters.attestqa import AttestqaAdapter
 from targets_config import PHP_CVE_2012_1823
 from run_agent import _resolve_api_key, _resolve_workspace_id
@@ -25,7 +25,8 @@ KEY = "vulhub:php/CVE-2012-1823"
 def main(repeats: int = 1, max_iterations: int = 30, effort: str = "medium") -> int:
     labels = load(LABELS)
     spec = TargetSpec(key=KEY, base_url=BASE_URL, compose_dir=COMPOSE_DIR,
-                      plant_cfg=PHP_CVE_2012_1823, creds=None, post_reset_init=None)
+                      plant_cfg=PHP_CVE_2012_1823, creds=None, post_reset_init=None,
+                      health_check=http_signature_check("Your name is"))
     tool = AttestqaAdapter(provider="claude", api_key=_resolve_api_key(),
                            workspace_id=_resolve_workspace_id(),
                            session_provider=None, exclude_paths=[],

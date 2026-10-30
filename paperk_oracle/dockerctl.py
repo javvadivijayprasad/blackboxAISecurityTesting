@@ -9,22 +9,38 @@ import subprocess
 from pathlib import Path
 
 
-def _run(cmd: list[str], cwd: str | Path | None = None, timeout: int = 300) -> subprocess.CompletedProcess:
-    return subprocess.run(cmd, cwd=str(cwd) if cwd else None, capture_output=True,
-                          text=True, timeout=timeout)
+class DockerError(RuntimeError):
+    """A docker/compose command exited non-zero. Raised by _run(check=True) so a failed
+    reset (e.g. a port already allocated by a stale target) aborts loudly instead of letting
+    the run proceed against the wrong container — the silent-failure trap that mislabelled a
+    laravel run as joomla on 2026-10-29."""
+
+
+def _run(cmd: list[str], cwd: str | Path | None = None, timeout: int = 300,
+         check: bool = False) -> subprocess.CompletedProcess:
+    p = subprocess.run(cmd, cwd=str(cwd) if cwd else None, capture_output=True,
+                       text=True, timeout=timeout)
+    if check and p.returncode != 0:
+        raise DockerError(
+            f"command failed (exit {p.returncode}): {' '.join(cmd)}\n"
+            f"cwd={cwd}\n--- stdout ---\n{p.stdout}\n--- stderr ---\n{p.stderr}")
+    return p
 
 
 def compose_up(compose_dir: str | Path) -> None:
-    _run(["docker", "compose", "up", "-d", "--build"], cwd=compose_dir)
+    _run(["docker", "compose", "up", "-d", "--build"], cwd=compose_dir, check=True)
 
 
 def compose_reset(compose_dir: str | Path) -> None:
     """Down with volumes, then up — a clean slate between runs. Recreates containers with a
     FRESH volume but reuses the already-built/pinned image (no --build, no pull) so the reset is
     fast and the image stays fixed across repeats. App-level schema (e.g. DVWA users) is gone
-    after this and must be re-initialised by the target's post_reset_init hook."""
-    _run(["docker", "compose", "down", "-v"], cwd=compose_dir)
-    _run(["docker", "compose", "up", "-d", "--pull", "never"], cwd=compose_dir, timeout=600)
+    after this and must be re-initialised by the target's post_reset_init hook.
+
+    check=True on both steps: if `down -v` or `up` fails (a port held by a stale target is the
+    usual cause) we raise rather than run the tool against whatever else holds the port."""
+    _run(["docker", "compose", "down", "-v"], cwd=compose_dir, check=True)
+    _run(["docker", "compose", "up", "-d", "--pull", "never"], cwd=compose_dir, timeout=600, check=True)
 
 
 def image_digest(image: str) -> str | None:
@@ -67,7 +83,7 @@ def zap_up(name: str = "paperk-zap", host_port: int = 8090, api_key: str = "pape
         "-config", f"api.key={api_key}",
         "-config", "api.addrs.addr.name=.*",
         "-config", "api.addrs.addr.regex=true",
-    ])
+    ], check=True)
 
 
 def zap_down(name: str = "paperk-zap") -> None:

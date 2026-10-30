@@ -1,0 +1,59 @@
+[
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:thinkphp/5-rce",
+    "run_id": "thinkphp-5-rce-attestqa-claude-r0",
+    "instances": [
+      {
+        "label_id": "THINKPHP-RCE-001",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": true
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 63966,
+    "cost_usd": 0.36723,
+    "wall_clock_s": 35.67535638809204
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:thinkphp/5-rce",
+    "run_id": "thinkphp-5-rce-attestqa-claude-r1",
+    "instances": [
+      {
+        "label_id": "THINKPHP-RCE-001",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": true
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 61339,
+    "cost_usd": 0.350515,
+    "wall_clock_s": 34.66622233390808
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:thinkphp/5-rce",
+    "run_id": "thinkphp-5-rce-attestqa-claude-r2",
+    "instances": [
+      {
+        "label_id": "THINKPHP-RCE-001",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": true,
+        "detected": true,
+        "exploited": true
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 58355,
+    "cost_usd": 0.335615,
+    "wall_clock_s": 41.579917430877686
+  }
+]

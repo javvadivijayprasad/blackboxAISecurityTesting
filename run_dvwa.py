@@ -13,7 +13,7 @@ from __future__ import annotations
 import sys
 
 from paperk_oracle.labels import load
-from paperk_oracle.runner import TargetSpec, run_once, save_scores
+from paperk_oracle.runner import TargetSpec, run_once, save_scores, http_signature_check
 from paperk_oracle.adapters.zap import ZapAdapter
 from targets_config import (DVWA, dvwa_zap_session_setup, dvwa_reinit,
                             DVWA_ZAP_SEEDS, DVWA_ZAP_EXCLUDE)
@@ -31,7 +31,8 @@ def main(level: str = "low", repeats: int = 1) -> int:
     labels = load(f"labels/DVWA.{level}.labels.yaml")
     spec = TargetSpec(key="DVWA", base_url=BASE_URL, compose_dir=COMPOSE_DIR,
                       plant_cfg=DVWA, creds={"user": "admin", "pass": "password"},
-                      post_reset_init=dvwa_reinit)
+                      post_reset_init=dvwa_reinit,
+                      health_check=http_signature_check("DVWA"))
     tool = ZapAdapter(ZAP_API, ZAP_KEY,
                       session_setup=dvwa_zap_session_setup(level),
                       seed_requests=DVWA_ZAP_SEEDS,

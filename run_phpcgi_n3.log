@@ -1,0 +1,5 @@
+budget: max_iterations=30, effort=medium
+  php-CVE-2012-1823-attestqa-claude-r0: detect 1/1, confirm 1/1, FP 0, $0.161665 / 34s
+  php-CVE-2012-1823-attestqa-claude-r1: detect 1/1, confirm 1/1, FP 0, $0.198925 / 36s
+  php-CVE-2012-1823-attestqa-claude-r2: detect 1/1, confirm 1/1, FP 0, $0.24383 / 43s
+saved scores.php-CVE-2012-1823.attestqa.x3.json: 3 run(s); total cost $0.6044

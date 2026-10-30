@@ -19,10 +19,42 @@ from .grade import score_run, RunScore, InstanceVerdict
 from . import dockerctl
 
 
+class TargetMismatch(RuntimeError):
+    """The app answering at base_url is not the expected target (or nothing answers). Raised
+    by the health check before any tool runs, so a reset that left the wrong container on the
+    port can never produce mislabelled scores (the laravel-hit-joomla bug, 2026-10-29)."""
+
+
+def http_signature_check(must_contain: str, path: str = "/", *, in_headers: bool = False,
+                         timeout: int = 10, retries: int = 3, retry_delay: float = 2.0):
+    """Build a health_check(base_url) that GETs base_url+path and raises TargetMismatch unless
+    `must_contain` appears in the response body (or headers, if in_headers). Retries a few times
+    so a just-reset container that is still booting is not mistaken for the wrong app."""
+    import time as _t
+    import urllib.request as _u
+    def _check(base_url: str) -> None:
+        url = base_url.rstrip("/") + path
+        last = ""
+        for attempt in range(retries):
+            try:
+                with _u.urlopen(url, timeout=timeout) as r:
+                    hay = (" ".join(f"{k}: {v}" for k, v in r.headers.items())
+                           if in_headers else r.read().decode("utf-8", "replace"))
+                if must_contain.lower() in hay.lower():
+                    return
+                last = f"response did not contain {must_contain!r} (in {'headers' if in_headers else 'body'})"
+            except Exception as e:  # connection refused / timeout while still booting
+                last = f"{type(e).__name__}: {e}"
+            if attempt < retries - 1:
+                _t.sleep(retry_delay)
+        raise TargetMismatch(f"health check failed for {url}: {last}")
+    return _check
+
+
 class TargetSpec:
     def __init__(self, key: str, base_url: str, compose_dir: str,
                  plant_cfg: PlantConfig, creds: dict | None = None,
-                 post_reset_init=None):
+                 post_reset_init=None, health_check=None):
         self.key = key
         self.base_url = base_url
         self.compose_dir = compose_dir
@@ -31,6 +63,10 @@ class TargetSpec:
         # Optional target-specific hook run after compose_reset to re-initialise app-level
         # state a `down -v` wiped (e.g. DVWA setup.php recreates its schema). Takes base_url.
         self.post_reset_init = post_reset_init
+        # Optional health_check(base_url) that raises TargetMismatch unless the EXPECTED app is
+        # answering (build one with http_signature_check). Run after reset/init, before the tool
+        # — the guard against scoring a run that hit the wrong container on a shared port.
+        self.health_check = health_check
 
 
 def _apply_predicates(result: RunResult, labels: list[Label], nonces: dict[str, str],
@@ -81,6 +117,11 @@ def run_once(tool: Tool, spec: TargetSpec, labels: list[Label], run_id: str,
         dockerctl.compose_reset(spec.compose_dir)
         if spec.post_reset_init:          # re-create app schema the `down -v` wiped
             spec.post_reset_init(spec.base_url)
+    # Verify the EXPECTED app is the one answering before we plant or spend a single API token.
+    # Runs whether or not we reset (reset=False targets share port 8080 too). Raises
+    # TargetMismatch on the wrong app / an empty port, aborting the run loudly.
+    if spec.health_check:
+        spec.health_check(spec.base_url)
     nonces = mint_for_labels(run_id, [l.id for l in labels]).by_label
 
     # Bind on all interfaces so a payload running INSIDE the target container can call back via

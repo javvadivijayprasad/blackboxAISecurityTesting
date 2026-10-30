@@ -14,6 +14,7 @@ __pycache__/
 *.tgz
 _repo_push.tgz
 archive_scores/
+quarantine_invalid/
 
 # the deliberately-vulnerable targets are fetched, not committed
 targets/
