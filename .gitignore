@@ -19,3 +19,7 @@ quarantine_invalid/
 # the deliberately-vulnerable targets are fetched, not committed
 targets/
 _tmp/
+
+# scratch
+*_run.log
+extension/

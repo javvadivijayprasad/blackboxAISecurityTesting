@@ -190,6 +190,8 @@ class AttestqaAdapter:
         cost_usd = 0.0
         served_by: set[str] = set()
         refusals = 0
+        retries_used = 0          # number of times a declined turn was re-issued (refusal-retry study)
+        recovered_retries = None  # total retries at the FIRST time a retry overcame a refusal
 
         def _call():
             r = client.beta.messages.create(
@@ -214,13 +216,21 @@ class AttestqaAdapter:
             # refuse `cyber` intermittently). Every attempt is billed and counted; a successful
             # retry's response is the one we keep. Only if all attempts refuse do we stop.
             resp = _call()
+            turn_had_refusal = False
             for _attempt in range(self.max_refusal_retries):
                 if resp.stop_reason != "refusal":
                     break
+                turn_had_refusal = True
                 refusals += 1
+                retries_used += 1
                 det = getattr(resp, "stop_details", None)
                 transcript.append(f"[refusal] category={getattr(det, 'category', None)}; retrying turn.")
                 resp = _call()
+            # First time a retry carried a refused turn through to a normal response: record how
+            # many retries it took. If this stays None across the run, no refusal was ever overcome.
+            if turn_had_refusal and resp.stop_reason != "refusal" and recovered_retries is None:
+                recovered_retries = retries_used
+                transcript.append(f"[recovered] overcame a refusal after {retries_used} total retries.")
 
             for block in resp.content:
                 if block.type == "text" and block.text:
@@ -262,6 +272,8 @@ class AttestqaAdapter:
         if served_by:
             transcript.append(f"[served_by] {', '.join(sorted(served_by))}")
         transcript.append(f"[refusals_total] {refusals}")
+        transcript.append(f"[retries_used] {retries_used}")
+        transcript.append(f"[recovered_from_refusal] {'yes@'+str(recovered_retries) if recovered_retries is not None else 'no'}")
 
         return RunResult(
             tool=self.tool_label, target=target, run_id=run_id,

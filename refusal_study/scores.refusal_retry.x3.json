@@ -1,0 +1,116 @@
+[
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:joomla/CVE-2015-8562",
+    "run_id": "joomla-CVE-2015-8562-retry8-r0",
+    "instances": [
+      {
+        "label_id": "JOOMLA-OBJINJ-001",
+        "vuln_class": "object_injection",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 185189,
+    "cost_usd": 0.939525,
+    "wall_clock_s": 37.63754153251648
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:joomla/CVE-2015-8562",
+    "run_id": "joomla-CVE-2015-8562-retry8-r1",
+    "instances": [
+      {
+        "label_id": "JOOMLA-OBJINJ-001",
+        "vuln_class": "object_injection",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 264032,
+    "cost_usd": 1.36336,
+    "wall_clock_s": 66.26216959953308
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:joomla/CVE-2015-8562",
+    "run_id": "joomla-CVE-2015-8562-retry8-r2",
+    "instances": [
+      {
+        "label_id": "JOOMLA-OBJINJ-001",
+        "vuln_class": "object_injection",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 303475,
+    "cost_usd": 1.575195,
+    "wall_clock_s": 68.82292985916138
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:laravel/CVE-2021-3129",
+    "run_id": "laravel-CVE-2021-3129-retry8-r0",
+    "instances": [
+      {
+        "label_id": "LARAVEL-RCE-001",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 593247,
+    "cost_usd": 3.023395,
+    "wall_clock_s": 77.19589161872864
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:laravel/CVE-2021-3129",
+    "run_id": "laravel-CVE-2021-3129-retry8-r1",
+    "instances": [
+      {
+        "label_id": "LARAVEL-RCE-001",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 741721,
+    "cost_usd": 3.774885,
+    "wall_clock_s": 87.70105051994324
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:laravel/CVE-2021-3129",
+    "run_id": "laravel-CVE-2021-3129-retry8-r2",
+    "instances": [
+      {
+        "label_id": "LARAVEL-RCE-001",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 673794,
+    "cost_usd": 3.45519,
+    "wall_clock_s": 129.8302128314972
+  }
+]

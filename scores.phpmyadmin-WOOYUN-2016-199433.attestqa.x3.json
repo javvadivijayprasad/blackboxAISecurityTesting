@@ -1,0 +1,59 @@
+[
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:phpmyadmin/WOOYUN-2016-199433",
+    "run_id": "phpmyadmin-WOOYUN-2016-199433-attestqa-claude-r0",
+    "instances": [
+      {
+        "label_id": "PHPMYADMIN-OBJINJ-001",
+        "vuln_class": "object_injection",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 233694,
+    "cost_usd": 1.24115,
+    "wall_clock_s": 61.60253167152405
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:phpmyadmin/WOOYUN-2016-199433",
+    "run_id": "phpmyadmin-WOOYUN-2016-199433-attestqa-claude-r1",
+    "instances": [
+      {
+        "label_id": "PHPMYADMIN-OBJINJ-001",
+        "vuln_class": "object_injection",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 204815,
+    "cost_usd": 1.081695,
+    "wall_clock_s": 55.33297252655029
+  },
+  {
+    "tool": "attestqa:claude",
+    "target": "vulhub:phpmyadmin/WOOYUN-2016-199433",
+    "run_id": "phpmyadmin-WOOYUN-2016-199433-attestqa-claude-r2",
+    "instances": [
+      {
+        "label_id": "PHPMYADMIN-OBJINJ-001",
+        "vuln_class": "object_injection",
+        "is_vulnerable": true,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 134793,
+    "cost_usd": 0.717845,
+    "wall_clock_s": 43.127403020858765
+  }
+]

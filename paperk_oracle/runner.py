@@ -26,10 +26,12 @@ class TargetMismatch(RuntimeError):
 
 
 def http_signature_check(must_contain: str, path: str = "/", *, in_headers: bool = False,
-                         timeout: int = 10, retries: int = 3, retry_delay: float = 2.0):
+                         timeout: int = 10, retries: int = 15, retry_delay: float = 3.0):
     """Build a health_check(base_url) that GETs base_url+path and raises TargetMismatch unless
-    `must_contain` appears in the response body (or headers, if in_headers). Retries a few times
-    so a just-reset container that is still booting is not mistaken for the wrong app."""
+    `must_contain` appears in the response body (or headers, if in_headers). Retries (default
+    ~45s total) so a just-reset container still booting is not mistaken for the wrong app; a
+    truly wrong/absent app still raises after the budget. Pass a larger retries for a target with
+    a slow first-boot (e.g. a DB self-install)."""
     import time as _t
     import urllib.request as _u
     def _check(base_url: str) -> None:

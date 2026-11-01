@@ -9,9 +9,9 @@ All targets are public, deliberately-vulnerable PHP applications. Each is pinned
 - vulhub (subset) : vulhub (selected subset)  9b90d4276f84feed6333286afeb7e1250379a1da  2026-10-18 04:59:35 +0800  https://github.com/vulhub/vulhub.git
 
 ## Control-gaining class coverage (maps to plan Section 3)
-- Object injection / unserialize / POP chains : vulhub joomla/CVE-2015-8562 ; php/CVE-2018-19518
+- Object injection / unserialize / POP chains : vulhub joomla/CVE-2015-8562 ; php/CVE-2018-19518 ; phpmyadmin/WOOYUN-2016-199433 (setup.php PMA_Config deserialization — gadget construction, file read)
 - File inclusion -> code execution (LFI/RFI)  : vulhub php/inclusion ; phpmyadmin/CVE-2018-12613 ; DVWA (File Inclusion) ; Mutillidae
-- Command / eval sinks -> RCE                 : vulhub php/CVE-2012-1823 ; php/CVE-2019-11043 ; thinkphp 2-rce/5-rce/5.0.23-rce ; drupal/CVE-2018-7600 ; drupal/CVE-2018-7602 ; laravel/CVE-2021-3129 ; DVWA (Command Injection)
+- Command / eval sinks -> RCE                 : vulhub php/CVE-2012-1823 ; php/CVE-2019-11043 ; thinkphp 2-rce/5-rce/5.0.23-rce ; phpunit/CVE-2017-9841 (eval-stdin one-shot) ; drupal/CVE-2018-7600 (Drupalgeddon2; needs install) ; drupal/CVE-2018-7602 ; laravel/CVE-2021-3129 ; DVWA (Command Injection)
 - Unrestricted upload -> webshell             : DVWA (File Upload) ; Mutillidae
 - Type-juggling auth bypass                   : DVWA (high levels) ; Mutillidae ; (candidate dedicated target TBD)
 - SQL injection                               : DVWA ; Mutillidae ; vulhub thinkphp/in-sqlinjection ; drupal/CVE-2014-3704
