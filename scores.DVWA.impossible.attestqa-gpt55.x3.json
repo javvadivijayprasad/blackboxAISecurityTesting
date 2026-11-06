@@ -1,0 +1,122 @@
+[
+  {
+    "tool": "attestqa:openai",
+    "target": "DVWA",
+    "run_id": "DVWA-impossible-attestqa-gpt55-r0",
+    "instances": [
+      {
+        "label_id": "DVWA-CMD_INJECTION-002",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": false,
+        "detected": true,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-LFI_EXEC-002",
+        "vuln_class": "lfi_exec",
+        "is_vulnerable": false,
+        "detected": true,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-UPLOAD_WEBSHELL-002",
+        "vuln_class": "upload_webshell",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-SQLI-002",
+        "vuln_class": "sqli",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 2,
+    "unscored": 0,
+    "cost_tokens": 382269,
+    "cost_usd": 2.014245,
+    "wall_clock_s": 111.8670060634613
+  },
+  {
+    "tool": "attestqa:openai",
+    "target": "DVWA",
+    "run_id": "DVWA-impossible-attestqa-gpt55-r1",
+    "instances": [
+      {
+        "label_id": "DVWA-CMD_INJECTION-002",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-LFI_EXEC-002",
+        "vuln_class": "lfi_exec",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-UPLOAD_WEBSHELL-002",
+        "vuln_class": "upload_webshell",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-SQLI-002",
+        "vuln_class": "sqli",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 433512,
+    "cost_usd": 2.265385,
+    "wall_clock_s": 104.9939112663269
+  },
+  {
+    "tool": "attestqa:openai",
+    "target": "DVWA",
+    "run_id": "DVWA-impossible-attestqa-gpt55-r2",
+    "instances": [
+      {
+        "label_id": "DVWA-CMD_INJECTION-002",
+        "vuln_class": "cmd_injection",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-LFI_EXEC-002",
+        "vuln_class": "lfi_exec",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-UPLOAD_WEBSHELL-002",
+        "vuln_class": "upload_webshell",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      },
+      {
+        "label_id": "DVWA-SQLI-002",
+        "vuln_class": "sqli",
+        "is_vulnerable": false,
+        "detected": false,
+        "exploited": false
+      }
+    ],
+    "false_positives": 0,
+    "unscored": 0,
+    "cost_tokens": 325180,
+    "cost_usd": 1.71395,
+    "wall_clock_s": 92.64384508132935
+  }
+]
